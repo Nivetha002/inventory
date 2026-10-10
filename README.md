@@ -4,6 +4,9 @@ A Flutter-based Inventory and Point of Sale (POS) management application designe
 
 It supports both **walk-in customers** and **registered customers**, including customer-linked sales and credit tracking.
 
+## App Screenshots
+<img width="1303" height="1207" alt="Inventory   POS App Screenshots" src="https://github.com/user-attachments/assets/95d801eb-8679-430c-86ee-8d06897a10a2" />
+
 ## Features
 
 ### Authentication and User Management
