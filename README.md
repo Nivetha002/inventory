@@ -1,537 +1,155 @@
 # Inventory & POS Management System
 
-A Flutter-based Inventory and Point of Sale (POS) management application designed for small businesses. The application helps manage products, categories, inventory, customers, billing, sales, users, and customer dues from a single platform.
-
-It supports both **walk-in customers** and **registered customers**, including customer-linked sales and credit tracking.
+A Flutter-based mobile application for managing sales, walk-in POS transactions, purchases, inventory, customers, and reports across multiple organizations and branches. The system works with a web-based administration platform where organizations, branches, users, roles, and master data can be managed.
 
 ## App Screenshots
-<img width="1303" height="1207" alt="Inventory   POS App Screenshots" src="https://github.com/user-attachments/assets/95d801eb-8679-430c-86ee-8d06897a10a2" />
+<img width="1536" height="1024" alt="Chappathi Corner POS UI Showcase" src="https://github.com/user-attachments/assets/73d74f78-7124-4b54-b024-a82dcf106ae8" />
 
 ## Features
 
-### Authentication and User Management
+### Organization and Branch Management
 
-- Supabase Authentication-based login.
-- Role-based access with Admin, Manager, and Cashier roles.
-- Create, activate, and deactivate user accounts.
-- Store user profile details separately in the `profiles` table.
-- Support for account status management.
+Organization, branch, user, and role management are available through the web-based administration platform.
+
+- Create and manage organizations.
+- Create multiple branches under an organization.
+- Assign roles and users to branches.
+- Configure user access based on role permissions.
+- Customize the company name shown in the system.
+
+### Mobile Application
+
+Branch users can sign in to the mobile app with credentials provided by the organization.
+
+- Secure user login.
+- Product, category, customer, and user management.
+- Sales, POS, purchase, and inventory workflows.
+- Mobile configuration and report access.
 
 ### Product and Category Management
 
-- Create, edit, and manage product categories.
-- Create and edit products.
-- Store product SKU and barcode details.
-- Manage purchase price and selling price.
-- Configure minimum stock levels.
-- Activate or deactivate products.
-- Search products by name, SKU, or barcode.
+- Create and manage products and categories.
+- Search and select products during sales and POS transactions.
+- Manage product information for branch operations.
 
-### Inventory Management
+### Sales and POS
 
-- Stock-in operation.
-- Stock-out operation.
-- Stock adjustment.
-- Automatic stock deduction after a successful sale.
-- Stock validation before completing a sale.
-- Low-stock identification based on minimum stock level.
-- Stock movement history.
+The application supports both registered-customer sales and walk-in POS transactions.
 
-### Customer Management
+- Record regular sales for registered customers.
+- Process POS transactions for walk-in customers.
+- Generate bills for sales and POS transactions.
+- Accept cash, credit, and UPI payments.
+- Track credit balances for credit sales.
+- Configure sales ID generation as continuous auto-increment or daily-reset manual numbering.
 
-- Create and edit regular customers.
-- Activate or deactivate customers.
-- Support for walk-in customers.
-- Link sales to registered customers.
-- Track customer purchase totals.
-- Track customer outstanding balances.
-- Support credit sales for registered customers.
+### Purchase and Inventory
 
-### POS Billing
+- Record purchases from suppliers.
+- Track stock received and sold.
+- View current inventory levels.
+- Identify low-stock products.
 
-- Search products by name, SKU, or barcode.
-- Add products to the cart.
-- Increase or decrease cart quantities.
-- Remove products from the cart.
-- Calculate subtotal, discount, tax, and total.
-- Support Cash, UPI, Card, and Credit payment methods.
-- Validate paid and due amounts.
-- Require a registered customer for credit sales.
-- Save completed sales and sale items.
-- Automatically update product stock after billing.
+### Reports and Configuration
 
-### Sales Management
-
-- View sales history.
-- Store invoice number and sale details.
-- View sold products and quantities.
-- Track subtotal, discount, tax, total, paid amount, and due amount.
-- Track payment method.
-- Link sales to users and registered customers.
-- Update customer outstanding balance for credit sales.
-
-### Application States and Error Handling
-
-- Loading states.
-- Empty data states.
-- Error states.
-- Form validation.
-- Invalid payment amount handling.
-- Insufficient stock validation.
-- Inactive product validation.
-- Inactive customer validation.
-- Credit sale without customer validation.
-
-## Screens
-
-The application includes the following screens:
-
-- Login screen.
-- Dashboard screen.
-- User management screen.
-- Category management screen.
-- Product management screen.
-- Stock management screen.
-- Customer management screen.
-- POS billing screen.
-- Sales history screen.
-
-## POS Billing Workflow
-
-```text
-Search Product
-      ↓
-Add Product to Cart
-      ↓
-Update Quantity
-      ↓
-Calculate Subtotal
-      ↓
-Apply Discount and Tax
-      ↓
-Select Customer
-      ↓
-Select Payment Method
-      ↓
-Enter Paid Amount
-      ↓
-Validate Payment
-      ↓
-Complete Sale
-      ↓
-Validate Stock
-      ↓
-Reduce Product Stock
-      ↓
-Create Stock Movement
-      ↓
-Save Sale and Sale Items
-      ↓
-Update Customer Balance
-```
-
-## Customer Types
-
-### Walk-in Customer
-
-A walk-in customer is used for one-time purchases when customer details do not need to be stored.
-
-```text
-Customer → Walk-in Customer
-Payment  → Cash / UPI / Card
-Sale     → Completed
-```
-
-The sale is stored without linking it to a registered customer.
-
-### Registered Customer
-
-A registered customer is selected from the Customer Management module.
-
-```text
-Customer → Registered Customer
-Payment  → Cash / UPI / Card / Credit
-Sale     → Completed
-```
-
-The sale is linked to the selected customer.
-
-For credit sales:
-
-```text
-Registered Customer
-        ↓
-      Sale
-        ↓
-Outstanding Balance
-```
-
-## Payment Methods
-
-| Payment Method | Customer Required | Due Supported |
-|---|---:|---:|
-| Cash | No | No |
-| UPI | No | No |
-| Card | No | No |
-| Credit | Yes | Yes |
-
-A credit sale can only be completed for a registered customer.
+- Filter reports by date, month, item, and payment method.
+- Review cash, credit, and UPI transactions.
+- Download reports.
+- Configure Bluetooth receipt printing.
 
 ## Technology Stack
 
 | Area | Technology |
 |---|---|
-| Framework | Flutter |
+| Mobile framework | Flutter |
 | Language | Dart |
-| State Management | Provider |
-| Backend | Supabase |
-| Authentication | Supabase Authentication |
 | Database | PostgreSQL |
-| Database Access | Supabase Flutter SDK |
-| Architecture | Layered, repository-based architecture |
-| UI | Flutter Material 3 |
-| Version Control | Git |
+| Backend / API | Node js |
+| State management | Provider|
 
-## Architecture
-
-The project follows a layered architecture that separates the user interface, state management, business logic, and database operations.
+## Application Workflow
 
 ```text
-UI / Screens
+Super Admin
+    ↓
+Create Organization
+    ↓
+Create Branches
+    ↓
+Assign Roles and Users
+    ↓
+Branch User Signs In to Mobile App
+    ↓
+Manage Products, Customers, Sales, POS, Purchases, and Inventory
+    ↓
+View and Download Reports
+```
+
+## Sales and POS Workflow
+
+```text
+Select Products
       ↓
-Provider
+Add Items to Bill
       ↓
-Business Logic
+Choose Registered Customer or Walk-in
       ↓
-Repository
+Select Cash, Credit, or UPI
       ↓
-Supabase
+Complete Sale
       ↓
-PostgreSQL
+Generate Bill and Update Inventory
+      ↓
+Update Customer Credit Balance, When Applicable
 ```
 
-### UI Layer
+## Reports
 
-Responsible for:
+Reports support filtering by:
 
-- Displaying screens.
-- Handling user interactions.
-- Managing forms.
-- Showing loading, error, and empty states.
-- Displaying data to the user.
+- Date and month.
+- Product or item.
+- Payment method: cash, credit, or UPI.
 
-### Provider Layer
+Users can download reports from the mobile application.
 
-Responsible for:
+## Bluetooth Printing
 
-- Managing application state.
-- Communicating between the UI and repositories.
-- Notifying the UI when data changes.
-- Handling loading and error states.
+Configure a supported Bluetooth printer in the mobile application to print transaction bills.
 
-### Repository Layer
-
-Responsible for:
-
-- Database operations.
-- CRUD operations.
-- Product and customer management.
-- Sales processing.
-- Stock-related operations.
-- Communication with Supabase.
-
-### Supabase and PostgreSQL
-
-Responsible for storing:
-
-- Authentication data.
-- User profiles.
-- Roles and account status.
-- Categories.
-- Products.
-- Stock movements.
-- Customers.
-- Sales.
-- Sale items.
-
-## Project Structure
-
-```text
-lib/
-├── models/
-│   ├── user_model.dart
-│   ├── category_model.dart
-│   ├── product_model.dart
-│   ├── customer_model.dart
-│   ├── cart_item_model.dart
-│   └── sale_model.dart
-│
-├── providers/
-│   ├── user_provider.dart
-│   ├── category_provider.dart
-│   ├── product_provider.dart
-│   ├── customer_provider.dart
-│   └── billing_provider.dart
-│
-├── repositories/
-│   ├── user_repository.dart
-│   ├── category_repository.dart
-│   ├── product_repository.dart
-│   ├── customer_repository.dart
-│   └── sales_repository.dart
-│
-├── screens/
-│   ├── auth/
-│   ├── dashboard/
-│   ├── users/
-│   ├── categories/
-│   ├── products/
-│   ├── customers/
-│   ├── billing/
-│   └── sales/
-│
-├── core/
-│   └── theme/
-│
-└── main.dart
-```
-
-## Database Design
-
-The application uses PostgreSQL through Supabase.
-
-### Main Tables
-
-- `profiles`
-- `categories`
-- `products`
-- `stock_movements`
-- `customers`
-- `sales`
-- `sale_items`
-
-### Main Relationships
-
-```text
-profiles
-   │
-   └── created_by
-          ↓
-        sales
-          │
-          └── sale_items
-                 │
-                 └── products
-```
-
-```text
-customers
-   │
-   └── customer_id
-          ↓
-        sales
-```
-
-```text
-categories
-   │
-   └── category_id
-          ↓
-        products
-```
-
-```text
-products
-   │
-   └── product_id
-          ↓
-    stock_movements
-```
-
-## Sale Data
-
-A completed sale contains:
-
-- Invoice number.
-- Customer reference, when applicable.
-- Subtotal.
-- Discount.
-- Tax.
-- Total amount.
-- Payment method.
-- Paid amount.
-- Due amount.
-- Created by user.
-- Created date.
-- Sale items.
-
-Example:
-
-```text
-Sale
- ├── Product A × 2
- ├── Product B × 1
- └── Product C × 3
-```
-
-## Supabase Setup
+## Project Setup
 
 ### Prerequisites
 
 - Flutter SDK.
 - Android Studio or Visual Studio Code.
-- Supabase account.
-- Supabase project.
-- Git.
+- Access to the project backend and PostgreSQL database configuration.
 
-### Add Supabase Package
-
-```bash
-flutter pub add supabase_flutter
-```
-
-### Initialize Supabase
-
-Configure Supabase in `main.dart`:
-
-```dart
-await Supabase.initialize(
-  url: 'YOUR_SUPABASE_URL',
-  publishableKey: 'YOUR_SUPABASE_PUBLISHABLE_KEY',
-);
-```
-
-Do not add a Supabase service-role key or any secret key to the Flutter application.
-
-Only the public Supabase URL and publishable key should be used in the client application.
-
-## Authentication and Security
-
-The application uses Supabase Authentication for user login.
-
-The authentication flow is:
-
-```text
-Supabase Auth
-      ↓
-auth.users
-      ↓
-profiles
-      ↓
-Role and Account Status
-```
-
-Supported roles:
-
-- `ADMIN`
-- `MANAGER`
-- `CASHIER`
-
-Row Level Security (RLS) is enabled on the main application tables.
-
-Administrative operations, such as creating users, should be handled through a secure backend function or server-side process. Privileged Supabase credentials must never be exposed inside the Flutter application.
-
-## Run the Project
-
-Install project dependencies:
+### Install Dependencies
 
 ```bash
 flutter pub get
 ```
 
-Run the application:
+### Configure the Application
+
+Add the required backend/API settings using the project’s configuration method. Do not commit passwords, private keys, database credentials, or other secrets to the repository.
+
+### Run the Application
 
 ```bash
 flutter run
 ```
 
-## Quality Checks
-
-Format the project:
-
-```bash
-dart format lib
-```
-
-Run static analysis:
-
-```bash
-flutter analyze
-```
-
-Run tests:
-
-```bash
-flutter test
-```
-
-## Build Android APK
-
-Create a release APK using:
+### Build Android APK
 
 ```bash
 flutter build apk --release
 ```
 
-The generated APK is normally created at:
-
-```text
-build/app/outputs/flutter-apk/app-release.apk
-```
-
-## Future Improvements
-
-The following features are planned for future versions:
-
-- Barcode and QR code scanning.
-- Supplier management.
-- Purchase management.
-- Sales returns.
-- Invoice and receipt generation.
-- PDF and CSV reports.
-- Sales and profit reports.
-- Advanced dashboard analytics.
-- SQLite offline support.
-- Offline transaction synchronization.
-- Supabase Realtime updates.
-- Push notifications.
-- Low-stock notifications.
-- Customer payment history.
-- Advanced search and filtering.
-- Audit logs.
-- Improved role-based permissions.
-- PostgreSQL RPC functions for atomic sales transactions.
-- Unit tests.
-- Widget tests.
-- Integration tests.
-
 ## Project Status
 
-**Current Version:** MVP
-
-The current version focuses on the core inventory and POS workflow:
-
-```text
-Authentication
-      ↓
-Users
-      ↓
-Categories
-      ↓
-Products
-      ↓
-Stock
-      ↓
-Customers
-      ↓
-Billing
-      ↓
-Sales
-```
-
-The MVP includes authentication, user management, product management, category management, stock management, customer management, POS billing, payment validation, credit sales, and sales history.
-
-Additional enterprise-level features are planned for future releases.
+This project supports multi-organization and multi-branch operations, with web-based administration and mobile workflows for sales, POS, purchases, inventory, configuration, and reporting.
 
 ## Author
 
